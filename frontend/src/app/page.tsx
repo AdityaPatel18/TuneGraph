@@ -4,7 +4,7 @@ import { Chart } from "react-google-charts";
 
 export default function Home() {
   const data = [
-    ["Age", "Weight"], // Column headers (X, Y)
+    ["Liveliness", "Loudness"], // Column headers (X, Y)
     [8, 12],
     [4, 5.5],
     [11, 14],
@@ -14,11 +14,11 @@ export default function Home() {
   ];
 
   const options = {
-    title: "Age vs. Weight Comparison",
-    hAxis: { title: "Age", minValue: 0, maxValue: 15 },
-    vAxis: { title: "Weight", minValue: 0, maxValue: 15 },
+    title: "Liveliness vs Loudness for 3 groupings of Tempo",
+    hAxis: { title: "Liveliness", minValue: 0, maxValue: 10 },
+    vAxis: { title: "Loudness", minValue: 0, maxValue: 10 },
     legend: "none",
-    colors: ["#FF5733"], // Optional: Custom color
+    colors: ["#593c3c"], // Optional: Custom color
   };
 
   return (
