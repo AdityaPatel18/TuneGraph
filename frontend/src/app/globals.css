@@ -9,8 +9,12 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
+    --background: #1f1f1f;
     --foreground: #ededed;
+    background-image: url('/frontend/public/background.png');
+    background-image: cover;
+    background-position: center;
+    background-repeat: no-repeat;
   }
 }
 
