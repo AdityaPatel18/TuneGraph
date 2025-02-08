@@ -108,7 +108,7 @@ def parseData(inputfile):
             song_features[track_id]["instrumentalness"] = float(row.get("instrumentalness", 0.0))*10
             song_features[track_id]["liveness"] = float(row.get("liveness", 0.0))*10
             song_features[track_id]["valence"] = float(row.get("valence", 0.0))*10
-            song_features[track_id]["tempo"] = float(row.get("tempo", 0))/15
+            song_features[track_id]["tempo"] = float(row.get("tempo", 0))/20
             song_features[track_id]["duration_ms"] = int(row.get("duration_ms", 0)) // 40000
             song_features[track_id]["time_signature"] = int(row.get("time_signature", 0))
             i+=1
