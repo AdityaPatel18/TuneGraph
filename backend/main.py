@@ -1,9 +1,9 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-
+import kagglehub
+from fastapi.responses import JSONResponse
 app = FastAPI()
 
-# Allow frontend access
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],  # Adjust in production
@@ -11,6 +11,13 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+@app.get("/api/download_dataset")
+async def download_dataset():
+    try:
+        path = kagglehub.dataset_download("amitanshjoshi/spotify-1million-tracks")
+    except Exception as e:
+      return JSONResponse(status_code=400, content={"message": str(e)})
 
 @app.get("/api/message")
 def get_message():
