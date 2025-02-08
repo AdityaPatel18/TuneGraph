@@ -13,7 +13,7 @@ pnpm dev
 # or
 bun dev
 ```
-
+# In our intermediate project we aimed to create a set of graphs indentifying key trends within our dataset as well as a gameplay that allows the user to input their choices in different attributes (ex. liveliness, energy, danceability, etc.) and the program will offer the user five songs that have matching outputs. This project not only has many implications for helping in the field of AI music, but offers some unique prospectives for the viewers. Additionally the program requires extensive use of databases to work. We were able to successfully create the set of graphs and design the website. 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
