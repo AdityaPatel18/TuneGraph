@@ -10,6 +10,7 @@
 !.yarn/releases
 !.yarn/versions
 
+data/1/spotify_data.csv
 # testing
 /coverage
 
