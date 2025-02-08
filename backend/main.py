@@ -15,10 +15,13 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 @app.get("/api/download_dataset")
 async def download_dataset():
     try:
         folder_path = 'data'
+        if os.path.exists(folder_path):
+            shutil.rmtree(folder_path)
         os.makedirs(folder_path, exist_ok=True)
         temp_path = kagglehub.dataset_download("amitanshjoshi/spotify-1million-tracks")
         filename = os.path.basename(temp_path)  # Extract the filename from the path
