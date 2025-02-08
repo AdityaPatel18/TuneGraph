@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@types/react": "^19.0.8",
     "react-google-charts": "^5.2.1"
   }
 }
