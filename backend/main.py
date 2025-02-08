@@ -2,6 +2,9 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import kagglehub
 from fastapi.responses import JSONResponse
+import os
+import shutil
+
 app = FastAPI()
 
 app.add_middleware(
@@ -15,7 +18,12 @@ app.add_middleware(
 @app.get("/api/download_dataset")
 async def download_dataset():
     try:
-        path = kagglehub.dataset_download("amitanshjoshi/spotify-1million-tracks")
+        folder_path = 'data'
+        os.makedirs(folder_path, exist_ok=True)
+        temp_path = kagglehub.dataset_download("amitanshjoshi/spotify-1million-tracks")
+        filename = os.path.basename(temp_path)  # Extract the filename from the path
+        final_path = os.path.join(folder_path, filename)  # Destination path in the folder
+        shutil.move(temp_path, final_path)
     except Exception as e:
       return JSONResponse(status_code=400, content={"message": str(e)})
 
