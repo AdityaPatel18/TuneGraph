@@ -13,7 +13,7 @@ song_features = {}
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Adjust in production
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -47,8 +47,8 @@ async def download_dataset():
             shutil.rmtree(folder_path)
         os.makedirs(folder_path, exist_ok=True)
         temp_path = kagglehub.dataset_download("amitanshjoshi/spotify-1million-tracks")
-        filename = os.path.basename(temp_path)  # Extract the filename from the path
-        final_path = os.path.join(folder_path, filename)  # Destination path in the folder
+        filename = os.path.basename(temp_path)
+        final_path = os.path.join(folder_path, filename)
         shutil.move(temp_path, final_path)
         input_file = 'data/1/spotify_data.csv'
         reduce_csv_file_inplace(input_file, 1000)
@@ -101,6 +101,7 @@ def parseData(inputfile):
             song_features[track_id]["artist_name"] = row.get("artist_name")
             song_features[track_id]["track_name"] = row.get("track_name")
             song_features[track_id]["popularity"] = int(row.get("popularity", 0))/10
+            song_features[track_id]["key"] = int(row.get("key"))
             song_features[track_id]["year"] = int(row.get("year", 0))
             song_features[track_id]["danceability"] = float(row.get("danceability", 0.0))*10
             song_features[track_id]["energy"] = float(row.get("energy", 0.0))*10
@@ -112,8 +113,3 @@ def parseData(inputfile):
             song_features[track_id]["duration_ms"] = int(row.get("duration_ms", 0)) // 40000
             song_features[track_id]["time_signature"] = int(row.get("time_signature", 0))
             i+=1
-
-    for track_id, attributes in list(song_features.items())[:3]:  # Show first 3 tracks
-        print(f"Track ID: {track_id}")
-        print(attributes)
-        print("-" * 50)
