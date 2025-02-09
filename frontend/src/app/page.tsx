@@ -17,14 +17,11 @@ export default function Home() {
   }
   const triggerDownloadAndFetchData = async () => {
     try {
-      // Trigger the download dataset API (this will initiate the download process on the backend)
       await fetch('http://localhost:8000/api/download_dataset');
       
-      // Once the download is triggered, fetch the data
       const response = await fetch('http://localhost:8000/api/data');
       const data = await response.json();
       
-      // Store the data in state
       setSongData(data);
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -55,6 +52,27 @@ export default function Home() {
             alt="x"/>
             </div>
           </div>)}
+
+          {isExpanded && (
+        <div className="fixed bg-black top-20 left-0 right-0 z-[100] w-5/6 h-5/6 m-auto">
+          <div className="flex-row bg-red-800">
+            <div onClick={handleClick}>
+              <Image
+                src="/x.svg"
+                width={50}
+                height={50}
+                alt="x"
+                className="invert"
+              />
+            </div>
+          </div>
+          <div className="flex flex-row">
+            <div className="h-full w-2/3">
+              {/* <Graph chartType={"ScatterChart"} data={scatterData} options={options} /> */}
+            </div>
+            <div className="w-1/3"></div>
+          </div>
+        </div>)}
     </div>
   );
 }

@@ -167,6 +167,7 @@ export default function Graphs({ handleClick, isExpanded }: Props) {
           onClick={handleClick}
         >
           <Graph
+            chartName="Scatter Plot"
             chartType={"ScatterChart"}
             data={formattedData}
             options={optionsScat}
@@ -180,10 +181,11 @@ export default function Graphs({ handleClick, isExpanded }: Props) {
           onClick={handleClick}
         >
           <Graph
+            chartName="Box Plot"
             chartType={"CandlestickChart"}
             data={boxData}
             options={optionsBox}
-            info={""}
+            info={"The box plot above shows a loose positive correlation between valence and energy. Although the box plots show a clear upwards pattern going upwards, where as the energy increases, the valence increases, the correlation is still loose because the ranges of the values become larger towards the end."}
           />
         </div>
         <div
@@ -191,10 +193,11 @@ export default function Graphs({ handleClick, isExpanded }: Props) {
           onClick={handleClick}
         >
           <Graph
+            chartName="Scatter Plot"
             chartType={"ScatterChart"}
             data={correlationData}
             options={optionsCorrelation}
-            info={""}
+            info={"This scatterplot does not show any particular correlation between energy and tempo (BPM). The graph shows more points toward the median of the energy and tempo values but it does not suggest that the data is centered at that area since there is a large area."}
           />
         </div>
         <div
@@ -202,10 +205,11 @@ export default function Graphs({ handleClick, isExpanded }: Props) {
           onClick={handleClick}
         >
           <Graph
+            chartName="Double Bar Chart"
             chartType={"BarChart"}
             data={danceabilityBarData}
             options={optionsDanceabilityBarChart}
-            info={""}
+            info={"The double bar chart shows the number of tracks and the danceability ratings for each. One can see in the graph that multiple tracks have a similar average danceability rating."}
           />
         </div>
         <div
@@ -214,27 +218,7 @@ export default function Graphs({ handleClick, isExpanded }: Props) {
         ></div>
       </div>
 
-      {isExpanded && (
-        <div className="fixed bg-black top-20 left-0 right-0 z-[100] w-5/6 h-5/6 m-auto">
-          <div className="flex-row bg-red-800">
-            <div onClick={handleClick}>
-              <Image
-                src="/x.svg"
-                width={50}
-                height={50}
-                alt="x"
-                className="invert"
-              />
-            </div>
-          </div>
-          <div className="flex flex-row">
-            <div className="h-full w-2/3">
-              {/* <Graph chartType={"ScatterChart"} data={scatterData} options={options} /> */}
-            </div>
-            <div className="w-1/3"></div>
-          </div>
-        </div>
-      )}
+      
     </div>
   );
 }
