@@ -10,7 +10,7 @@ export default function Graphs({ handleClick, isExpanded }: Props) {
   const [formattedData, setFormattedData] = useState([["Liveliness", "Loudness", { role: "style" }]]);
   const [boxData, setBoxData] = useState([["Energy", "Low", "Open", "Close", "High"]]);
   const [correlationData, setCorrelationData] = useState([["Tempo", "Energy", { role: "style" }]]);
-  const [danceabilityHistogramData, setDanceabilityHistogramData] = useState([["Danceability", "Frequency"]]);
+  const [danceabilityBarData, setDanceabilityBarData] = useState([["Danceability Range", "Number of Tracks"]]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -20,22 +20,22 @@ export default function Graphs({ handleClick, isExpanded }: Props) {
         const jsonData = await response.json();
 
         const timeSignatureColors: Record<number, string> = {
-            3: "#FF5733",
-            4: "#33FF57",
-            5: "#3357FF",
-            6: "#FFD700",
-          };
-  
-          const data = [["Liveliness", "Loudness", { role: "style" }]];
-          Object.values(jsonData)
-            .slice(0, 400)
-            .forEach((track: any) => {
-              if (track.liveness !== null && track.loudness !== null && track.liveness < 6) {
-                const color = timeSignatureColors[track.time_signature] || "#808080";
-                data.push([track.liveness, track.loudness, color]);
-              }
-            });
-          setFormattedData(data);
+          3: "#FF5733",
+          4: "#33FF57",
+          5: "#3357FF",
+          6: "#FFD700",
+        };
+
+        const data = [["Liveliness", "Loudness", { role: "style" }]];
+        Object.values(jsonData)
+          .slice(0, 400)
+          .forEach((track: any) => {
+            if (track.liveness !== null && track.loudness !== null && track.liveness < 6) {
+              const color = timeSignatureColors[track.time_signature] || "#808080";
+              data.push([track.liveness, track.loudness, color]);
+            }
+          });
+        setFormattedData(data);
 
         const data2 = [["Energy", "Low", "Open", "Close", "High"]];
         Object.values(jsonData)
@@ -52,23 +52,23 @@ export default function Graphs({ handleClick, isExpanded }: Props) {
         setBoxData(data2);
 
         const data3 = [
-            ["Energy", "Tempo"],
-            ...Object.values(jsonData)
-              .slice(0, 200)
-              .map((track: any) => [track.energy, track.tempo]),
-            ["Danceability", "Tempo"],
-            ...Object.values(jsonData)
-              .slice(0, 200)
-              .map((track: any) => [track.danceability, track.tempo]),
-            ["Acousticness", "Loudness"],
-            ...Object.values(jsonData)
-              .slice(0, 200)
-              .map((track: any) => [track.acousticness, track.loudness]),
-            ["Speechiness", "Energy"],
-            ...Object.values(jsonData)
-              .slice(0, 200)
-              .map((track: any) => [track.speechiness, track.energy]),
-          ];
+          ["Energy", "Tempo"],
+          ...Object.values(jsonData)
+            .slice(0, 200)
+            .map((track: any) => [track.energy, track.tempo]),
+          ["Danceability", "Tempo"],
+          ...Object.values(jsonData)
+            .slice(0, 200)
+            .map((track: any) => [track.danceability, track.tempo]),
+          ["Acousticness", "Loudness"],
+          ...Object.values(jsonData)
+            .slice(0, 200)
+            .map((track: any) => [track.acousticness, track.loudness]),
+          ["Speechiness", "Energy"],
+          ...Object.values(jsonData)
+            .slice(0, 200)
+            .map((track: any) => [track.speechiness, track.energy]),
+        ];
 
         setCorrelationData(data3);
 
@@ -81,18 +81,18 @@ export default function Graphs({ handleClick, isExpanded }: Props) {
 
         const danceabilityBins: Record<number, number> = {};
         danceabilityData.forEach((value) => {
-          const bin = Math.floor(value / 0.1) * 0.1;
+          const bin = (Math.floor(value / 0.1) * 0.1).toFixed(1);
           danceabilityBins[bin] = (danceabilityBins[bin] || 0) + 1;
         });
 
-        const danceabilityHistogram = [["Danceability", "Frequency"]];
+        const danceabilityBar = [["Danceability Range", "Number of Tracks"]];
         Object.keys(danceabilityBins)
           .sort((a, b) => parseFloat(a) - parseFloat(b))
           .forEach((bin) => {
-            danceabilityHistogram.push([parseFloat(bin), danceabilityBins[bin]]);
+            danceabilityBar.push([bin, danceabilityBins[bin]]);
           });
 
-        setDanceabilityHistogramData(danceabilityHistogram);
+        setDanceabilityBarData(danceabilityBar);
 
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -126,10 +126,10 @@ export default function Graphs({ handleClick, isExpanded }: Props) {
     legend: "none",
   };
 
-  const optionsDanceabilityHistogram = {
-    title: "Distribution of Danceability",
-    hAxis: { title: "Danceability Rating", minValue: 0, maxValue: 1 },
-    vAxis: { title: "Frequency" },
+  const optionsDanceabilityBarChart = {
+    title: "Danceability Distribution",
+    hAxis: { title: "Danceability Range" },
+    vAxis: { title: "Number of Tracks" },
     legend: "none",
   };
 
@@ -149,7 +149,7 @@ export default function Graphs({ handleClick, isExpanded }: Props) {
         <Graph chartType="ScatterChart" data={correlationData} options={optionsCorrelation} />
       </div>
       <div className="w-full sm:w-1/2" onClick={handleClick}>
-        <Graph chartType="Histogram" data={danceabilityHistogramData} options={optionsDanceabilityHistogram} />
+        <Graph chartType="BarChart" data={danceabilityBarData} options={optionsDanceabilityBarChart} />
       </div>
     </div>
   );
