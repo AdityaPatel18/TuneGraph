@@ -11,7 +11,7 @@
   :root {
     --background: #1f1f1f;
     --foreground: #ededed;
-    background-image: url('/frontend/public/background.png');
+    --backgroundImage: url('/frontend/public/background.png');
     background-image: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -21,5 +21,14 @@
 body {
   color: var(--foreground);
   background: var(--background);
+  background-image: var(--backgroundImage);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.bgImage {
+  object-fit: cover;
+  z-index: -1;
+}
+.mainHome {
+  position: relative;
 }

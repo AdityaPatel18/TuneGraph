@@ -7,7 +7,7 @@ interface props {
     isExpanded?: boolean;
   }
 
-export default function Graphs({ handleClick, isExpanded }: props ) {    
+export default function Graphs({ handleClick, isExpanded }: props ) {
 
 
     const scatterData = [
@@ -41,9 +41,9 @@ export default function Graphs({ handleClick, isExpanded }: props ) {
     return (
         <div>
             <div className="p-12 flex flex-col sm:flex-row flex-wrap h-full w-full">
-                <div className="w-full sm:w-1/2" onClick={handleClick}><Graph chartType={"ScatterChart"} data={scatterData} options={options}/></div>
-                <div className="w-full sm:w-1/2" onClick={handleClick}><Graph chartType={"ScatterChart"} data={boxData} options={options}/></div>
-                <div className="w-full sm:w-1/2" onClick={handleClick}><Graph chartType={"ScatterChart"} data={boxData} options={options}/></div>
+                <div className="w-full sm:w-1/2 hover:-translate-y-4 hover:brightness-75 duration-150" onClick={handleClick}><Graph chartType={"ScatterChart"} data={scatterData} options={options}/></div>
+                <div className="w-full sm:w-1/2 hover:-translate-y-4 hover:brightness-75 duration-150" onClick={handleClick}><Graph chartType={"ScatterChart"} data={boxData} options={options}/></div>
+                <div className="w-full sm:w-1/2 hover:-translate-y-4 hover:brightness-75 duration-150" onClick={handleClick}><Graph chartType={"ScatterChart"} data={boxData} options={options}/></div>
                 <div className="opacity-0 h-96 w-full sm:w-1/2" onClick={handleClick}></div>
             </div>
 
